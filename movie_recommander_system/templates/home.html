@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home page</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='home1.css')}}">
+    
+</head>
+<body>
+  <a href="/">recommander page</a>
+
+<div class="top-movie">
+
+
+        {% if top %} {% for movie in top %}
+  
+        <div class="container">
+          <div class="image"><img src="{{ movie[1] }}" alt="" /></div>
+  
+          <p class="title">Title : {{ movie[2]}}</p>
+          <p class="rating">rating : {{ movie[4] }}</p>
+          <p class="year">year : {{ movie[3] }}</p>
+          <p>Duration : {{ movie[5] }}</p>
+        </div>
+  
+        {% endfor %} {% endif %}
+      </div>
+ 
+
+    
+</body>
+</html>
