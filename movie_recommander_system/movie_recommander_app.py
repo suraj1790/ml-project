@@ -1,15 +1,16 @@
 import pickle
 from crypt import methods
-
 from flask import Flask,render_template,request
+
 
 app = Flask(__name__)
 
-# load data's
-# vector = pickle.load(open("vector.pkl","rb"))
+
 top_100 = pickle.load(open("top_100.pkl","rb"))
 similarity = pickle.load(open("similarity.pkl","rb"))
 movies = pickle.load(open("movies.pkl","rb"))
+
+
 
 top_data = []
 
@@ -18,17 +19,26 @@ for i in top_100["index"]:
     top_data.append(val)
 
 
+
 @app.route("/",methods=["GET","POST"])
 def home():
-    # return render_template("home.html",top = top_data)
+    return render_template("home.html",top = top_data)
+
+
+
+
+
+
+
+@app.route("/recommand",methods=["GET","POST"])
+def recommand():
+
     datas = []
     indexes_of_5_movies=None
     movie_index = None
-    # return render_template("home.html",top = top_data)
 
     if request.method == "POST":
         movie_name = request.form.get('movie')
-        # return render_template("home.html",top = top_data)
 
         if movie_name not in movies["Title"].values:
             error_msg = "please enter a valid movie name"
@@ -43,11 +53,6 @@ def home():
 
     return render_template("recommand.html",name = datas,top = top_data)
 
-
-
-@app.route("/recommand",methods=["GET","POST"])
-def recommand():
-    return render_template("home.html",top=top_data)
 
 
 
